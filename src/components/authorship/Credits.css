@@ -1,0 +1,52 @@
+.credits {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  background: #0081d6;
+  width: 29rem;
+  box-sizing: border-box;
+  border-radius: 0.5rem;
+  margin-top: 5rem;
+  padding: 2rem;
+  color: white;
+}
+
+.credits > h3 {
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.source-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.source-link:hover {
+  color: rgb(6, 0, 37);
+}
+
+.source-link > p {
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.footer {
+  width: 29rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .credits {
+    margin-top: 1rem;
+    width: 94vw;
+  }
+
+  .credits > h3 {
+    font-size: 2rem;
+  }
+
+  .footer {
+    width: 90vw;
+  }
+}
