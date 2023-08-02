@@ -32,7 +32,7 @@ function App() {
     try {
       const responseData = await sendRequest(
         // "http://3.67.197.173:5005/location"
-        "https://weather-app-backend-thepierrre.vercel.app/api/location"
+        "https://piotr-weather-app-071ce2895a0c.herokuapp.com/location"
       );
       setEnteredCity(`${responseData.city}, ${responseData.country_name}`);
     } catch (err) {
@@ -44,7 +44,7 @@ function App() {
     try {
       const responseData = await sendRequest(
         // `http://3.67.197.173:5005/weather?city=${enteredCity}`,
-        `https://weather-app-backend-thepierrre.vercel.app/api/weather?city=${enteredCity}`,
+        `https://piotr-weather-app-071ce2895a0c.herokuapp.com/weather?city=${enteredCity}`,
         "GET",
         null,
         { "Content-Type": "application/json" }
