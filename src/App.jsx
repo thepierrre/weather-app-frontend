@@ -31,7 +31,8 @@ function App() {
   const getLocation = async () => {
     try {
       const responseData = await sendRequest(
-        "http://3.67.197.173:5005/location"
+        // "http://3.67.197.173:5005/location"
+        "https://weather-app-backend-thepierrre.vercel.app/api/location"
       );
       setEnteredCity(`${responseData.city}, ${responseData.country_name}`);
     } catch (err) {
@@ -42,7 +43,8 @@ function App() {
   const getWeather = async () => {
     try {
       const responseData = await sendRequest(
-        `http://3.67.197.173:5005/weather?city=${enteredCity}`,
+        // `http://3.67.197.173:5005/weather?city=${enteredCity}`,
+        `https://weather-app-backend-thepierrre.vercel.app/api/weather?city=${enteredCity}`,
         "GET",
         null,
         { "Content-Type": "application/json" }
