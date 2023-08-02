@@ -1,13 +1,109 @@
-import { useState } from "react";
+// import axios from "axios";
+// import { useState } from "react";
+// import SearchBar from "./components/SearchBar/SearchBar";
+// import CurrentWeather from "./components/CurrentWeather/CurrentWeather";
+// import Footer from "./components/authorship/Footer";
+// import "./App.css";
 
+// function App() {
+//   const [enteredCity, setEnteredCity] = useState("");
+//   const [isLoading, setIsLoading] = useState(false);
+//   const [currWeather, setCurrWeather] = useState({
+//     city: undefined,
+//     country: undefined,
+//     temp: undefined,
+//     main: "Clear",
+//     wind: undefined,
+//     humidity: undefined,
+//     pressure: undefined,
+//     felt: undefined,
+//     time: undefined,
+//     sunrise: undefined,
+//     sunset: undefined,
+//   });
+
+//   const cityInputChangeHandler = (event) => {
+//     setEnteredCity(event.target.value);
+//   };
+
+//   const getLocation = () => {
+//     setIsLoading(true);
+//     setEnteredCity("Fetching the city...");
+//     navigator.geolocation.getCurrentPosition(
+//       async (position) => {
+//         const lat = position.coords.latitude;
+//         const lon = position.coords.longitude;
+
+//         try {
+//           const response = await axios.post("http://localhost:5011/location", {
+//             lat,
+//             lon,
+//           });
+//           setEnteredCity(response.data);
+//         } catch (err) {
+//           console.log(err);
+//         } finally {
+//           setIsLoading(false);
+//         }
+//       },
+//       (error) => {
+//         console.error("Error getting geolocation:", error);
+//       }
+//     );
+//   };
+
+//   const getWeather = async () => {
+//     try {
+//       const response = await axios.get(
+//         // `https://piotr-weather-app-071ce2895a0c.herokuapp.com/weather?city=${enteredCity}`
+//         `http://localhost:5011/weather?city=${enteredCity}`
+//       );
+//       setCurrWeather({
+//         city: response.data.name,
+//         country: response.data.sys.country,
+//         temp: response.data.main.temp,
+//         main: response.data.weather[0].main,
+//         wind: response.data.wind.speed,
+//         humidity: response.data.main.humidity,
+//         pressure: response.data.main.pressure,
+//         felt: response.data.main.feels_like,
+//         time: response.data.timezone,
+//         sunrise: response.data.sys.sunrise,
+//         sunset: response.data.sys.sunset,
+//       });
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   };
+
+//   return (
+//     <div className="app">
+//       <h1 className="main-title">Enter a city name!</h1>
+//       <SearchBar
+//         getWeather={getWeather}
+//         getLocation={getLocation}
+//         cityInputChangeHandler={cityInputChangeHandler}
+//         enteredCity={enteredCity}
+//       />
+//       <CurrentWeather currWeather={currWeather} />
+//       <Footer className="footer" />
+//     </div>
+//   );
+// }
+
+// export default App;
+
+import axios from "axios";
+import { useState } from "react";
 import SearchBar from "./components/SearchBar/SearchBar";
 import CurrentWeather from "./components/CurrentWeather/CurrentWeather";
-import { useHttpClient } from "./hooks/http-hook";
 import Footer from "./components/authorship/Footer";
+import DayPartContextProvider from "./DayPartContextProvider";
 import "./App.css";
 
 function App() {
   const [enteredCity, setEnteredCity] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [currWeather, setCurrWeather] = useState({
     city: undefined,
     country: undefined,
@@ -22,48 +118,63 @@ function App() {
     sunset: undefined,
   });
 
-  const { sendRequest } = useHttpClient();
-
   const cityInputChangeHandler = (event) => {
     setEnteredCity(event.target.value);
   };
 
-  const getLocation = async () => {
+  const getLocation = () => {
+    setIsLoading(true);
+    setEnteredCity("Fetching the city...");
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        try {
+          const response = await axios.post("http://localhost:5011/location", {
+            lat,
+            lon,
+          });
+          setEnteredCity(response.data);
+        } catch (err) {
+          console.log(err);
+        } finally {
+          setIsLoading(false);
+        }
+      },
+      (error) => {
+        console.error("Error getting geolocation:", error);
+      }
+    );
+  };
+
+  const getWeather = async () => {
     try {
-      const responseData = await sendRequest(
-        // "http://3.67.197.173:5005/location"
-        "https://piotr-weather-app-071ce2895a0c.herokuapp.com/location"
+      const response = await axios.get(
+        // `https://piotr-weather-app-071ce2895a0c.herokuapp.com/weather?city=${enteredCity}`
+        `http://localhost:5011/weather?city=${enteredCity}`
       );
-      setEnteredCity(`${responseData.city}, ${responseData.country_name}`);
+      setCurrWeather({
+        city: response.data.name,
+        country: response.data.sys.country,
+        temp: response.data.main.temp,
+        main: response.data.weather[0].main,
+        wind: response.data.wind.speed,
+        humidity: response.data.main.humidity,
+        pressure: response.data.main.pressure,
+        felt: response.data.main.feels_like,
+        time: response.data.timezone,
+        sunrise: response.data.sys.sunrise,
+        sunset: response.data.sys.sunset,
+      });
     } catch (err) {
       console.log(err);
     }
   };
 
-  const getWeather = async () => {
-    try {
-      const responseData = await sendRequest(
-        // `http://3.67.197.173:5005/weather?city=${enteredCity}`,
-        `https://piotr-weather-app-071ce2895a0c.herokuapp.com/weather?city=${enteredCity}`,
-        "GET",
-        null,
-        { "Content-Type": "application/json" }
-      );
-      setCurrWeather({
-        city: responseData.name,
-        country: responseData.sys.country,
-        temp: responseData.main.temp,
-        main: responseData.weather[0].main,
-        wind: responseData.wind.speed,
-        humidity: responseData.main.humidity,
-        pressure: responseData.main.pressure,
-        felt: responseData.main.feels_like,
-        time: responseData.timezone,
-        sunrise: responseData.sys.sunrise,
-        sunset: responseData.sys.sunset,
-      });
-    } catch (err) {
-      console.log(err);
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      getWeather();
     }
   };
 
@@ -76,7 +187,15 @@ function App() {
         cityInputChangeHandler={cityInputChangeHandler}
         enteredCity={enteredCity}
       />
-      <CurrentWeather currWeather={currWeather} />
+
+      {/* Add the DayPartContextProvider here */}
+      <DayPartContextProvider
+        sunrise={currWeather.sunrise}
+        sunset={currWeather.sunset}
+      >
+        <CurrentWeather currWeather={currWeather} />
+      </DayPartContextProvider>
+
       <Footer className="footer" />
     </div>
   );
