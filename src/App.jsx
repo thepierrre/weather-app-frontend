@@ -58,8 +58,9 @@ function App() {
 
   const getWeather = async () => {
     try {
-      const response =
-        await axios.get`https://get-my-current-weather-e1a1907797e1.herokuapp.com/weather?city=${enteredCity}`();
+      const response = await axios.get(
+        `https://get-my-current-weather-e1a1907797e1.herokuapp.com/weather?city=${enteredCity}`
+      );
       setCurrWeather({
         city: response.data.name,
         country: response.data.sys.country,
