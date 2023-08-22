@@ -113,10 +113,24 @@
   font-size: 1.5rem;
 }
 
+.footer {
+  margin-top: 6rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.credits-link {
+  text-decoration: none;
+  color: rgb(139, 0, 0);
+}
+
 @media only screen and (max-width: 700px) {
   .city-container {
     flex-direction: column;
     width: 86vw;
+    gap: 0.5rem;
   }
 
   .current-weather-info {
@@ -140,9 +154,7 @@
 
   .additional_1 {
     width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    font-size: 1.05rem;
   }
 
   .additional_2 {
@@ -150,6 +162,7 @@
     flex-direction: column;
     align-items: flex-end;
     width: 60%;
+    font-size: 1.05rem;
   }
 
   .current-temperature {
@@ -160,7 +173,19 @@
     font-size: 1.3rem;
   }
 
+  .current-weather-info__day {
+    gap: 0.8rem;
+  }
+
   .current-weather-info__day p {
-    font-size: 1rem;
+    font-size: 1.02rem;
+  }
+
+  .footer {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }

@@ -2,13 +2,14 @@ import axios from "axios";
 import { useState } from "react";
 import SearchBar from "./components/SearchBar/SearchBar";
 import CurrentWeather from "./components/CurrentWeather/CurrentWeather";
-import Footer from "./components/authorship/Footer";
 import DayPartContextProvider from "./DayPartContextProvider";
+import Footer from "./components/authorship/Footer";
 import "./App.css";
 
 function App() {
   const [enteredCity, setEnteredCity] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [inputError, setInputError] = useState(false);
   const [currWeather, setCurrWeather] = useState({
     city: undefined,
     country: undefined,
@@ -37,7 +38,8 @@ function App() {
 
         try {
           const response = await axios.post(
-            "https://get-my-current-weather-e1a1907797e1.herokuapp.com/location",
+            // "https://get-my-current-weather-e1a1907797e1.herokuapp.com/location",
+            "http://localhost:5001/location",
             {
               lat,
               lon,
@@ -59,7 +61,8 @@ function App() {
   const getWeather = async () => {
     try {
       const response = await axios.get(
-        `https://get-my-current-weather-e1a1907797e1.herokuapp.com/weather?city=${enteredCity}`
+        // `https://get-my-current-weather-e1a1907797e1.herokuapp.com/weather?city=${enteredCity}`
+        `http://localhost:5001/weather?city=${enteredCity}`
       );
       setCurrWeather({
         city: response.data.name,
@@ -74,22 +77,23 @@ function App() {
         sunrise: response.data.sys.sunrise,
         sunset: response.data.sys.sunset,
       });
+      setInputError(undefined);
     } catch (err) {
-      console.log(err);
+      const inputErr = err.response.data.errorMessage;
+      setInputError(inputErr);
     }
   };
 
   return (
     <div className="app">
-      <h1 className="main-title">Enter a city name!</h1>
+      <h1 className="main-title">Get my current weather</h1>
       <SearchBar
         getWeather={getWeather}
         getLocation={getLocation}
         cityInputChangeHandler={cityInputChangeHandler}
         enteredCity={enteredCity}
       />
-
-      {/* Add the DayPartContextProvider here */}
+      {inputError && <p className="input-error">{inputError}</p>}
       <DayPartContextProvider
         sunrise={currWeather.sunrise}
         sunset={currWeather.sunset}
