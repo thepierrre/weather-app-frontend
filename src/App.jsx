@@ -38,8 +38,8 @@ function App() {
 
         try {
           const response = await axios.post(
-            // "https://get-my-current-weather-e1a1907797e1.herokuapp.com/location",
-            "http://localhost:5001/location",
+            "https://get-my-current-weather-e1a1907797e1.herokuapp.com/location",
+
             {
               lat,
               lon,
@@ -61,8 +61,7 @@ function App() {
   const getWeather = async () => {
     try {
       const response = await axios.get(
-        // `https://get-my-current-weather-e1a1907797e1.herokuapp.com/weather?city=${enteredCity}`
-        `http://localhost:5001/weather?city=${enteredCity}`
+        `https://get-my-current-weather-e1a1907797e1.herokuapp.com/weather?city=${enteredCity}`
       );
       setCurrWeather({
         city: response.data.name,
