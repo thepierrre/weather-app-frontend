@@ -85,7 +85,7 @@ function App() {
 
   return (
     <div className="app">
-      <h1 className="main-title">Get my current weather</h1>
+      <h1 className="main-title">Get my weather</h1>
       <SearchBar
         getWeather={getWeather}
         getLocation={getLocation}
