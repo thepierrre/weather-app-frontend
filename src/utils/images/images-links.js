@@ -1,5 +1,5 @@
 export const imagesLinks = {
-  sun: "https://cdn-icons-png.flaticon.com/512/4837/4837892.png",
+  sun: "https://cdn-icons-png.flaticon.com/512/10480/10480692.png",
   moon: "https://cdn-icons-png.flaticon.com/512/494/494454.png",
   smoke: "https://cdn-icons-png.flaticon.com/512/4383/4383606.png",
   dust: "https://cdn-icons-png.flaticon.com/512/9559/9559513.png",
