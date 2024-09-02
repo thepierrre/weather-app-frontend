@@ -4,8 +4,6 @@
 <img src="https://cdn-icons-png.flaticon.com/512/979/979585.png" alt="Logo" width="25%" height="25%">
 </p>
 
-<p align="center"><a href="https://get-my-current-weather.netlify.app/">LINK TO THE PAGE</a></p>
-
 <h2 align="center">Technologies Used</h2>
 
 The project comprises a full-stack application displaying a current weather for the chosen place. It was created by using **React.js** for the frontend and **Express.js** for the backend.
